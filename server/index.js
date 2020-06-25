@@ -88,6 +88,24 @@ app.post('/api/checkUser',(req,res)=>{
     })
 });
 
+app.get('/api/getAllUsers',(req,res)=>{
+    // return User.find();
+    User.findOne().then(ret=>{
+        if(ret){
+            res.send({
+                action:false,
+                message:"user already present"
+            })
+        }
+        else{
+            res.send({
+                action:true,
+                message:"user can be added"
+            })
+        }
+    })
+});
+
 app.get('/api/getDataForDashboard',(req,res)=>{
     let {department}=req.body;
     User.find({department}).then(ret=>{
