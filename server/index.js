@@ -139,29 +139,7 @@ app.post('/api/checkUser',(req,res)=>{
     })
 });
 
-<<<<<<< HEAD
-app.get('/api/getAllUsers',(req,res)=>{
-    // return User.find();
-    User.findOne().then(ret=>{
-        if(ret){
-            res.send({
-                action:false,
-                message:"user already present"
-            })
-        }
-        else{
-            res.send({
-                action:true,
-                message:"user can be added"
-            })
-        }
-    })
-});
-
-app.get('/api/getDataForDashboard',(req,res)=>{
-=======
 app.get('/api/getDataForDashboard',auth,(req,res)=>{
->>>>>>> cbb7e1ae91a200d5031b1b5435d23755d7b34086
     let {department}=req.body;
     User.find({department}).then(ret=>{
         if(ret.length==0){
