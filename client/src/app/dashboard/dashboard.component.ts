@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../user.service';
+import { GlobalDataService } from '../global-data.service';
+import { Router } from '@angular/router';
 
-// import { UserService } from  '../shared/user.service';
-// import { User } from '';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -11,21 +13,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  departments=["co","ec","ce","ch","ee"];
-  constructor() { }
-
+  constructor(private userService:UserService,private global:GlobalDataService,private router:Router) { }
+  photo="";
   ngOnInit() {
-    // this.getUsers();
+    this.userService.getImageUrlForUser({"userId":this.global.loggedInUsername}).subscribe((data)=>{
+      if(!data.action){
+        console.log(data.message)
+      }
+      else{
+        this.photo=data.message;
+      }
+    })
   }
 
-  // getUsers()
-  // {
-  //   this.userService.getUsersList().subscribe((res)=>{
-    
-  //     this.userService.users=res as User[];
-  //     console.log(this.userService.users);
-  //   });
-  //   // this.http.get(this.baseUrl)
-  // }
+
+  
 
 }
