@@ -61,6 +61,7 @@ export class SignUpComponent implements OnInit {
       else{
         console.log(data.message);
         let username=data.message.user.userId;
+        localStorage.setItem("user",data.message.user);
         localStorage.setItem("access_token",data.message.token)
         this.router.navigate(['/dashboard/'+username]);
       }

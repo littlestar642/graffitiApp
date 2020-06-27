@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit {
   constructor(private userService:UserService,private global:GlobalDataService,private router:Router,private sanitizer: DomSanitizer) { }
   photo="";
   userArr:User[];
-  currentUser:User;
+  currentUser=JSON.parse(localStorage.getItem("user"));
 
   ngOnInit() {
     // this.userArr=[];
@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
 
   getDepartmentUsers(department:string)
   {
-    
+    console.log("this is the user "+this.currentUser);
 
     this.userService.getDataForDashboard({"department":department}).subscribe((data)=>
     {
