@@ -35,6 +35,7 @@ export class SignUpComponent implements OnInit {
   checkUsername(){
     let username=this.form.get('username').value;
     this.userService.checkUser({"userId":username}).subscribe((data)=>{
+
       if(!data.action){
         console.log(data.message);
         this.allowSignup=false;
@@ -53,6 +54,7 @@ export class SignUpComponent implements OnInit {
     let password=this.form.get('password').value;
     if(!username || !password)return;
     const hashedPass = SHA256(password).toString(enc.Hex);
+    console.log("in signup");
     this.userService.createUser({"userId":username,"firstName":firstName,"lastName":lastName,"password":hashedPass,"department":this.department}).subscribe(data=>{
       if(!data.action){
         console.log(data.message);
