@@ -8,7 +8,7 @@
  
   <div class="w-1/2 block flex-grow lg:flex lg:w-auto ">
     
-    <input type="search" class="bg-purple-white shadow rounded border-0 p-3" placeholder="Search by name..." >
+    <input type="search" #search name="search" id="search" class="bg-purple-white shadow rounded border-0 p-3" placeholder="Search by name..." (input)="searchWord(search.value)">
         <div class="absolute pin-r pin-t mt-3 mr-4 text-purple-lighter">
         </div>
   </div>

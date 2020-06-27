@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
   constructor(private userService:UserService,private global:GlobalDataService,private router:Router,private sanitizer: DomSanitizer) { }
   photo="";
   userArr:User[];
+  userArrPermanent:User[];
   currentUser=JSON.parse(localStorage.getItem("user"));
 
   ngOnInit() {
@@ -46,15 +47,37 @@ export class DashboardComponent implements OnInit {
       if(!data.action)
       {
         this.userArr=[];
+        this.userArrPermanent=[];
         console.log(data.message);
       }
       else{
         this.userArr=JSON.parse(data.message);
+        this.userArrPermanent=this.userArr;
         console.log("this is department "+this.userArr[0].department);
       }
     })
   }
 
+  searchWord(word:string)
+  {
+    console.log("randi sala " +(word));
+    this.userArr=this.userArrPermanent;
+    if(word=="")
+    return;
+    var userArrLen=this.userArr.length;
+    var tempUser:User[];
+    tempUser=[];
+    for(var i=0;i<userArrLen;i++)
+    {
+      if((this.userArr[i].userId).toLowerCase().indexOf(word.toLowerCase())>=0)
+      {
+      
+        tempUser.push(this.userArr[i]);
+      }
+    }
+    this.userArr=tempUser;
+    console.log("this is user array"+this.userArr);
+  }
 
   
 
