@@ -84,8 +84,11 @@ app.post('/api/createUser',async (req,res)=>{
 app.post('/api/login',async (req,res)=>{
     let {userId,password}=req.body;
     try{
+        console.log(userId,password);
         let user=await User.findByCredentials(userId,password);
-    if (!user) {
+        
+    if (typeof user === "Error")
+    {
         return res.status(401).send({message: 'Login failed! Check authentication credentials',action:false})
     }
     const token = await user.generateAuthToken();
@@ -93,11 +96,14 @@ app.post('/api/login',async (req,res)=>{
     res.send({
         action:true,
         message:{token,user}
+    
     })
+    
     }
     catch(e){
         console.log(e);
-        res.status(400).send({message:e,action:false});
+        //res.status(400).send({message:e,action:false});
+        res.send({message:"wrong credentials",action:false});
     }
 });
 
@@ -139,19 +145,22 @@ app.post('/api/checkUser',(req,res)=>{
     })
 });
 
-app.get('/api/getDataForDashboard',auth,(req,res)=>{
+app.post('/api/getDataForDashboard',auth,(req,res)=>{
     let {department}=req.body;
+    console.log("getdatafordashboardfunction");
     User.find({department}).then(ret=>{
         if(ret.length==0){
+            console.log("inside if ");
             res.send({
                 action:false,
                 message:"nothing to show"
             })
         }
         else{
+            console.log("inside else ");
             res.send({
                 action:true,
-                message:ret
+                message:JSON.stringify(ret)
             })
         }
     })
