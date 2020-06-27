@@ -4,6 +4,8 @@ import { UserService } from '../user.service';
 import { GlobalDataService } from '../global-data.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
+
 @Component({
   selector: 'app-edit-page',
   templateUrl: './edit-page.component.html',
@@ -11,7 +13,7 @@ import { ActivatedRouteSnapshot, Router } from '@angular/router';
 })
 export class EditPageComponent implements OnInit {
 
-  constructor(private userService:UserService,private global:GlobalDataService,private spinner: NgxSpinnerService,private router:Router) { }
+  constructor(private userService:UserService,private global:GlobalDataService,private spinner: NgxSpinnerService,private router:Router,private route:ActivatedRoute) { }
   private imageEditor;
   enableButton;
   ngOnInit() {
@@ -77,6 +79,15 @@ sendPhoto(){
   })
 }
 
+showFront()
+{
+  this.router.navigate(['front'],{relativeTo:this.route});
+}
+
+showBack()
+{
+  this.router.navigate(['back'],{relativeTo:this.route});
+}
 
 
          
