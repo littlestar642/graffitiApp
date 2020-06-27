@@ -19,6 +19,7 @@ cloudinary.config({
 
 const app = express();
 const photo=require('./photo');
+const photo_back=require('./photo_back');
 app.use(morgan('combined'));
 app.use(bodyParser.json({limit: '10mb', extended: true}));
 app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
@@ -80,19 +81,33 @@ app.post('/api/createUser',async (req,res)=>{
             })
         }
         else{
+            let photoUrl;
+            let imgPublicId;
+            let photoUrlBack;
+            let imgPublicIdBack;
             try{
                 cloudinary.uploader.upload(photo).then(async ret1=>{
                     let photoUrl=ret1.secure_url;
                     let imgPublicId=ret1.public_id;
-                    let user=new User({userId,password,department,usersAffected:[],photoUrl,imgPublicId,firstName,lastName});
-                    await user.save()
-                    let token=await user.generateAuthToken();
-                    res.send({
-                        action:true,
-                        message:{token,user}
-                    })
+                    // let user=new User({userId,password,department,usersAffected:[],photoUrl,imgPublicId,firstName,lastName});
+                    // await user.save()
+                    // let token=await user.generateAuthToken();
+                    // res.send({
+                    //     action:true,
+                    //     message:{token,user}
+                    // })
                 })
-                
+                cloudinary.uploader.upload(photo_back).then(async ret1=>{
+                    photoUrlBack=ret1.secure_url;
+                    imgPublicIdBack=ret1.public_id;     
+                })
+                let user=new User({userId,password,department,usersAffected:[],photoUrl,photoUrlBack,imgPublicId,imgPublicIdBack,firstName,lastName});
+                await user.save()
+                let token=await user.generateAuthToken();
+                res.send({
+                    action:true,
+                    message:{token,user}
+                })
             }
             catch(e){
                 res.status(400).send({
