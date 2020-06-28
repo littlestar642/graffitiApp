@@ -14,6 +14,7 @@ export class AuthGuardLoginService implements CanActivate{
 
   canActivate(){
     if(this.userService.isLoggedIn()){
+      
       if(localStorage.getItem("isBackBtnPressed")=="true"){
         localStorage.setItem("isBackBtnPressed","false");
         this.alertService.warn("You cannot visit that page without logging out");
