@@ -71,6 +71,43 @@ app.post('/api/updatePhoto',auth,(req,res)=>{
     })
 })
 
+
+app.post('/api/updatePhotoBack',auth,(req,res)=>{
+    let {tshirtUser,photo}=req.body;
+    User.findOne({userId:tshirtUser}).then(ret=>{
+        if(!ret){
+            res.send({
+                action:false,
+                message:"invalid request"
+            })
+        }
+        else{
+            cloudinary.uploader.destroy(ret.imgPublicId).then(()=>{
+                    cloudinary.uploader.upload(photo).then((ret1)=>{
+                        let imgPublicIdBack=ret1.public_id;
+                        let photoUrlBack=ret1.secure_url;
+                        ret.photoUrlBack=photoUrlBack;
+                        ret.imgPublicIdBack=imgPublicIdBack;
+                        User.findOneAndUpdate({userId:tshirtUser},ret).then(ret2=>{
+                            req.user.usersAffected.push(tshirtUser);
+                            User.findOneAndUpdate({userId:req.user.userId},req.user).then(()=>{
+                                res.send({
+                                    action:true,
+                                    message:"successfully updated"
+                                })
+                            })
+                        })
+                    })
+            }).catch(e=>{
+                console.log(e);
+            })
+        }
+    }).catch(e=>{
+        console.log(e);
+    })
+})
+
+
 app.post('/api/createUser',async (req,res)=>{
     let {userId,password,department,firstName,lastName}=req.body;
     User.findOne({userId}).then(async ret=>{
@@ -87,27 +124,30 @@ app.post('/api/createUser',async (req,res)=>{
             let imgPublicIdBack;
             try{
                 cloudinary.uploader.upload(photo).then(async ret1=>{
-                    let photoUrl=ret1.secure_url;
-                    let imgPublicId=ret1.public_id;
-                    // let user=new User({userId,password,department,usersAffected:[],photoUrl,imgPublicId,firstName,lastName});
-                    // await user.save()
-                    // let token=await user.generateAuthToken();
-                    // res.send({
-                    //     action:true,
-                    //     message:{token,user}
-                    // })
+                    photoUrl=ret1.secure_url;
+                    imgPublicId=ret1.public_id;
+                    cloudinary.uploader.upload(photo_back).then(async ret2=>{
+                        photoUrlBack=ret2.secure_url;
+                        imgPublicIdBack=ret2.public_id; 
+                        console.log("photo url ");
+                        let user=new User({userId,password,department,usersAffected:[],photoUrl,photoUrlBack,imgPublicId,imgPublicIdBack,firstName,lastName});
+                        await user.save()
+                        let token=await user.generateAuthToken();
+                        res.send({
+                        action:true,
+                        message:{token,user}
+                        })
+                        
+                    }).catch(e=>{
+                        console.log(e);
+                    })
+                    
+
+                }).catch(e=>{
+                    console.log(e);
                 })
-                cloudinary.uploader.upload(photo_back).then(async ret1=>{
-                    photoUrlBack=ret1.secure_url;
-                    imgPublicIdBack=ret1.public_id;     
-                })
-                let user=new User({userId,password,department,usersAffected:[],photoUrl,photoUrlBack,imgPublicId,imgPublicIdBack,firstName,lastName});
-                await user.save()
-                let token=await user.generateAuthToken();
-                res.send({
-                    action:true,
-                    message:{token,user}
-                })
+               
+                
             }
             catch(e){
                 res.status(400).send({
@@ -208,6 +248,13 @@ app.post('/api/getImageUrlForUser',auth,(req,res)=>{
     })
 });
 
+app.post('api/getImageUrlForUserBack',auth,(req,res)=>{
+    res.send({
+        action:true,
+        message:req.user.photoUrlBack
+    })
+})
+
 app.get('/api/getUsersAffected',auth,(req,res)=>{
     console.log(req.user.usersAffected);
     res.send({
@@ -229,6 +276,26 @@ app.post('/api/getImageUrlForTshirtUser',auth,(req,res)=>{
             res.send({
                 action:true,
                 message:{url:ret.photoUrl,user:JSON.stringify(req.user)}
+            })
+        }
+    }).catch(e=>{
+        console.log(e);
+    })
+    
+})
+app.post('/api/getImageUrlForTshirtUserBack',auth,(req,res)=>{
+    let {userId}=req.body;
+    User.findOne({userId}).then(ret=>{
+        if(!ret){
+            res.send({
+                action:false,
+                message:"invalid user request"
+            })
+        }
+        else{
+            res.send({
+                action:true,
+                message:{url:ret.photoUrlBack,user:JSON.stringify(req.user)}
             })
         }
     }).catch(e=>{

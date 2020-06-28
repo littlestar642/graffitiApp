@@ -44,6 +44,13 @@ export class UserService {
     return this.http.post(url,JSON.parse(JSON.stringify(user)),{headers});
   }
 
+  updatePhotoBack(user:any):any{
+    let url = this.baseUrl + "updatePhotoBack";
+    let headers=new HttpHeaders();
+    headers.set('Content-Type','application/json');
+    return this.http.post(url,JSON.parse(JSON.stringify(user)),{headers});
+  }
+
   checkUser(user:any):any{
     let url = this.baseUrl + "checkUser";
     let headers=new HttpHeaders();
