@@ -7,7 +7,6 @@ import { GlobalDataService } from '../global-data.service';
 import { Router } from '@angular/router';
 import { User } from '../user.model';
 import { DomSanitizer } from '@angular/platform-browser';
-// import {ChangeDetectionStrategy, Input} from "@angular/core";
 import { HostListener } from '@angular/core';
 
 
@@ -32,9 +31,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.getDepartmentUsers("COED");
     this.currentUser = JSON.parse(localStorage.getItem('user'));
-    this.userService.getImageUrlForUser({
-      "userId": localStorage.getItem("loggedInUsername")
-    }).subscribe((data) => {
+    this.userService.getImageUrlForUser().subscribe((data) => {
       if (!data.action) {
         console.log(data.message)
       } else {
@@ -64,7 +61,12 @@ export class DashboardComponent implements OnInit {
 
   callEdit(tshirtUser,currentUser){
     localStorage.setItem('tshirtUser',tshirtUser);
-    this.router.navigate(['/edit/'+currentUser+'/'+tshirtUser])
+    this.router.navigate(['/edit/'+currentUser+'/'+tshirtUser+'/front'])
+  }
+
+  callProfile(){
+    let user=localStorage.getItem('loggedInUsername');
+    this.router.navigate(['/profile/'+user+'/front'])
   }
 
   searchWord(word: string) {
@@ -77,6 +79,7 @@ export class DashboardComponent implements OnInit {
     for (var i = 0; i < userArrLen; i++) {
       var tempString=this.userArr[i].firstName+" "+this.userArr[i].lastName;
       if ((this.userArr[i].userId).toLowerCase().indexOf(word.toLowerCase()) >= 0) {
+        // console.log(this.userArr[i])
         tempUser.push(this.userArr[i]);
         continue;
       }

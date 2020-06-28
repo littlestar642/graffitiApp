@@ -14,6 +14,11 @@ import { AlertComponent } from './alert/alert.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import {NgxPaginationModule} from 'ngx-pagination'; 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FrontComponent } from './front/front.component';
+import { BackComponent } from './back/back.component';
+import { ProfileComponent } from './profile/profile.component';
+import { FrontProfileComponent } from './front-profile/front-profile.component';
+import { BackProfileComponent } from './back-profile/back-profile.component';
 
 
 export function tokenGetter() {
@@ -26,7 +31,12 @@ export function tokenGetter() {
     DashboardComponent,
     EditPageComponent,
     SignUpComponent,
-    AlertComponent
+    AlertComponent,
+    FrontComponent,
+    BackComponent,
+    ProfileComponent,
+    FrontProfileComponent,
+    BackProfileComponent
   ],
   imports: [
     BrowserModule,

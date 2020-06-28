@@ -14,9 +14,7 @@ export class AuthGuardLoginService implements CanActivate{
 
   canActivate(){
     if(this.userService.isLoggedIn()){
-      console.log("auth-guar-login");
       if(localStorage.getItem("isBackBtnPressed")=="true"){
-        console.log("auth-guar-login 2");
         localStorage.setItem("isBackBtnPressed","false");
         this.alertService.warn("You cannot visit that page without logging out");
         return false;
