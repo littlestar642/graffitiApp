@@ -25,10 +25,11 @@ export class DashboardComponent implements OnInit {
   userArrPermanent:User[];
   page: number = 1;
   currentUser=JSON.parse(localStorage.getItem("user"));
-
+  fetchedUsers = false;
 
 
   ngOnInit() {
+    this.spinner.show("spinner-2");
     this.getDepartmentUsers("COED");
     this.currentUser = JSON.parse(localStorage.getItem('user'));
     this.userService.getImageUrlForUser().subscribe((data) => {
@@ -55,6 +56,8 @@ export class DashboardComponent implements OnInit {
       } else {
         this.userArr = JSON.parse(data.message);
         this.userArrPermanent = this.userArr;
+        this.spinner.hide("spinner-2");
+        this.fetchedUsers=true;
       }
     })
   }
@@ -110,7 +113,5 @@ export class DashboardComponent implements OnInit {
   logout(){
     this.userService.logout();
   }
-
-
 
 }
