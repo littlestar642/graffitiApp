@@ -72,6 +72,14 @@ export class UserService {
     return this.http.post(url,JSON.parse(JSON.stringify(user)),{headers});
   }
 
+  getImageUrlForTshirtUserBack(user:any):any{
+    let url = this.baseUrl + "getImageUrlForTshirtUserBack";
+    let headers=new HttpHeaders();
+    headers.set('Content-Type','application/json');
+    return this.http.post(url,JSON.parse(JSON.stringify(user)),{headers});
+  }
+
+
   isLoggedIn(){
     if(!localStorage.getItem("access_token"))
     {
