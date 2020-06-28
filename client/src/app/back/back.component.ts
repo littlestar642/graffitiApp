@@ -17,6 +17,7 @@ export class BackComponent implements OnInit {
   private imageEditor;
   enableButton;
   ngOnInit() {
+    this.spinner.show();
     let flag=0;
     this.enableButton=false;
     this.imageEditor=new ImageEditor('#tui-image-editor-container', {
