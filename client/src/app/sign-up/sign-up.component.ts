@@ -41,11 +41,13 @@ export class SignUpComponent implements OnInit {
   checkPassword()
   {
     let password=this.form.get('password').value;
-    if(password.length<3||password.length>10)
+    if(password.length<3||password.length>20)
     {
-      this.alertService.error("Enter a password with length between 3 and 10.");
+      this.alertService.error("Enter a password with length between 3 and 20.");
+      this.allowSignupPassword=false;
       return;
     }
+    this.alertService.success("Valid password!");
     this.allowSignupPassword=true;
   }
 
@@ -55,6 +57,7 @@ export class SignUpComponent implements OnInit {
     if(firstName.length<3||firstName.length>15)
     {
       this.alertService.error("Sorry for your unfortunate first name :( But we only accept ones with length between 3 and 15! :)");
+      this.allowSignupFirstName=false;
       return;
     }
     let firstNameLen=firstName.length;
@@ -65,9 +68,10 @@ export class SignUpComponent implements OnInit {
         continue;
       }
       this.alertService.error("Unless you are Elon Musk's son, you are only allowed to have alphabets in your name");
+      this.allowSignupFirstName=false;
       return;
     }
-
+    this.alertService.success("Valid First Name!");
     this.allowSignupFirstName=true;
   }
 
@@ -87,9 +91,10 @@ export class SignUpComponent implements OnInit {
         continue;
       }
       this.alertService.error("Unless you are Elon Musk's son, you are only allowed to have alphabets in your name");
+      this.allowSignupLastName=false;
       return;
     }
-
+    this.alertService.success("Valid Last Name!");
     this.allowSignupLastName=true;
   }
 
@@ -101,11 +106,13 @@ export class SignUpComponent implements OnInit {
     if(usernameLen<3)
     {
       this.alertService.error("We have enough space in our db! Please enter a username greater than 3 characters");
+      this.allowSignup=false;
       return;
     }
-    if(usernameLen>10)
+    if(usernameLen>15)
     {
-      this.alertService.error("Having a long username won't give you higher marks. Please restrict to 10 characters");
+      this.alertService.error("Having a long username won't give you higher marks. Please restrict to 15 characters");
+      this.allowSignup=false;
       return;
     }
     for(let i=0;i<usernameLen;i++)
@@ -124,7 +131,8 @@ export class SignUpComponent implements OnInit {
       {
         continue;
       }
-      this.alertService.error("Bahut tez ho rahe ho? Alphanumeric and underscores(_) only! :) ");
+      this.allowSignup=false;
+      this.alertService.error("Bahut tez ho rahe ho hain? Alphanumeric and underscores(_) only! :) ");
       return;
     }
     this.userService.checkUser({"userId":username}).subscribe((data)=>{
