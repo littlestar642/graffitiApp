@@ -26,7 +26,7 @@ export class AlertComponent implements OnInit {
       this.alerts.push(alert);
       setTimeout(()=>{
         this.alerts.pop();
-      },5000);
+      },3000);
   });
   }
   removeAlert(alert: Alert) {
