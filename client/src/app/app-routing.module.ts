@@ -94,6 +94,10 @@ const routes: Routes = [{
   {
     path:'servererror',
     component:ServerErrorComponent
+  },
+  {
+    path:'**',
+    redirectTo:'/page404'
   }
 
 ];
