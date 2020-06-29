@@ -83,8 +83,7 @@
                 <div class=" text-grey-darker text-sm flex-1">
                  <p>{{user.userId}} </p>
                 </div>
-                  <a href="#" class="border-t border-grey-light pt-2 text-xs text-grey hover:text-red uppercase no-underline tracking-wide" style="
-                    ">{{user.department}}</a>
+                  <a href="#" class="border-t border-grey-light pt-2 text-xs text-grey hover:text-red uppercase no-underline tracking-wide">{{user.department}}</a>
             </div>
           </div>
           </a>
@@ -99,7 +98,10 @@
 =======
     
     
+    <div *ngIf="userArr.length!==0" class="w-1/2 text-white-100">
+        <pagination-controls (pageChange)="page = $event" class="my-pagination"></pagination-controls>
       <div class="w-1/2 text-white-100">
+<<<<<<< HEAD
 >>>>>>> 699f9079658914d4961321fa031692cb11d4b083
         <pagination-controls (pageChange)="page = $event"></pagination-controls>
       </div>
@@ -107,6 +109,8 @@
     </div>
 
     </div>
+=======
+>>>>>>> ac4736581c787b1c80a2e132d2c34961dddaeb23
   </div>
 </div>
 
