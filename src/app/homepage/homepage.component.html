@@ -1,19 +1,19 @@
 
-  <div class="text-gray-800 antialiased">
+  <div class="text-gray-800 antialiased bg-gray-900 absolute w-screen h-screen" style="background-image: url(../assets/images/register_bg_2.png); background-size: cover; background-repeat: no-repeat;overflow-y: hidden;">
     <nav
-      class="top-0 absolute z-10 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg"
+      class="w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg sm:justify-center sm:py-0 sm:h-16"
     >
       <div
-        class="container px-4 mx-auto flex flex-wrap items-center justify-between"
+        class="container px-4 mx-auto flex flex-wrap items-center justify-between sm:justify-center"
       >
         <div
-          class="w-full relative  flex justify-between lg:w-auto lg:static lg:block lg:justify-start"
+          class="w-full flex justify-between lg:w-auto lg:static lg:block lg:justify-start sm:justify-center"
         >
-         <p style="font-family: Lobster;font-style: cursive; color:white" class="text-4xl">Graffi-Tee</p>
+         <p style="font-family: Lobster;font-style: cursive; color:white" class="text-4xl sm:text-6xl sm:mt-2">Graffi-Tee</p>
         </div>
         <a
         target="_blank"
-        class="lg:text-white lg:hover:text-gray-300 text-gray-800  flex items-center text-base justify-center  font-bold"
+        class="lg:text-white lg:hover:text-gray-300 text-gray-800  flex items-center text-base justify-center font-bold sm:hidden lg:block"
         href="https://t.me/graffiTee"
         ><img class="mr-4" src="https://img.icons8.com/fluent/48/000000/telegram-app.png"/>
         <p>Please join our <br/> Channel for updates</p>
@@ -21,17 +21,13 @@
 
       </div>
     </nav>
-    <main>
-      <section class="absolute w-full h-full">
-        <div
-          class="absolute top-0 w-full h-full bg-gray-900"
-          style="background-image: url(../assets/images/register_bg_2.png); background-size: 100%; background-repeat: no-repeat;"
-        ></div>
-        <div class="container mx-auto px-4 h-full">
-          <div class="flex content-center items-center justify-center h-full">
-            <div class="w-full lg:w-4/12 px-4">
+    <main class="sm:mt-12">
+      <section class="w-screen h-screen sm:mt-4">
+        <div class="container mx-auto px-4 sm:mt-4">
+          <div class="flex content-center items-center justify-center">
+            <div class="w-full lg:w-4/12 px-4 mb-4">
               <div
-                class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-200 border-0"
+                class="flex flex-col min-w-0 break-words w-full mb-4 shadow-lg rounded-lg bg-gray-200 border-0 sm:mb-0"
               >
                 <div class="rounded-t mb-0 px-6 py-6">
                   <hr class="mt-6 border-b-1 border-gray-400" />
@@ -43,7 +39,7 @@
     
       
                   <form [formGroup]="form" class="mt-8">
-                    <div class="relative w-full mb-3">
+                    <div class="w-full mb-3">
                       <label
                         class="block uppercase text-gray-700 text-xs font-bold mb-2"
                         for="username"
@@ -54,7 +50,7 @@
                         style="transition: all 0.15s ease 0s;"
                       />
                     </div>
-                    <div class="relative w-full mb-3">
+                    <div class="w-full mb-3">
                       <label
                         class="block uppercase text-gray-700 text-xs font-bold mb-2"
                         for="password"
@@ -75,22 +71,25 @@
                     >
                     <p style="font-size: 20px; color:black">Authenticating if you are who you thing you are :'-)</p>
                     </ngx-spinner>
-                    <div class="inline-block text-center mt-1/2 p-5">
-                      <button (click)="login()"
-                        class="btn-primary"
-                        type="button"
-                      >
-                        Sign In
-                      </button>
-                    </div>
-                    <div class="inline-block text-center mt-1/2 p-5">
-                        <button routerLink="/signup"
+                    <div class="sm:flex justify-center">
+                      <div class="inline-block text-center mt-1/2 p-5">
+                        <button (click)="login()"
                           class="btn-primary"
                           type="button"
                         >
-                          Sign Up
+                          Sign In
                         </button>
                       </div>
+                      <div class="inline-block text-center mt-1/2 p-5">
+                          <button routerLink="/signup"
+                            class="btn-primary"
+                            type="button"
+                          >
+                            Sign Up
+                          </button>
+                        </div>
+                    </div>
+                    
                   </form>
                 </div>
               </div>
@@ -98,29 +97,29 @@
             </div>
           </div>
         </div>
-        <div class="absolute w-full bottom-0 bg-gray-900 pb-4 mt-2">
+        <div class="w-full bottom-0 bg-gray-900 pb-4 mt-2 sm:pb-0 sm:mt-0">
           <div class="container mx-auto px-4">
             <hr class="mb-6 border-b-1 border-gray-700" />
             <div
-              class="flex flex-wrap items-center md:justify-between justify-center"
+              class="flex flex-wrap items-center md:justify-between justify-center sm:flex-no-wrap sm:flex-row"
             >
-              <div class="w-full md:w-4/12 px-4">
+              <div class="w-full md:w-4/12 px-4 sm:mb-8">
                 <div class="text-sm text-white font-semibold py-1">
                  S V N I T  2020
                 </div>
               </div>
-              <div class="w-full md:w-8/12 px-4">
-                <ul
-                  class="flex flex-wrap list-none md:justify-end  justify-center"
-                >
-                  <li>
+              <a
+        target="_blank"
+        class="lg:text-white lg:hover:text-gray-300 text-gray-800  flex items-center text-base justify-center font-bold sm:hidden lg:block"
+        href="https://t.me/graffiTee"
+        ><img class="mr-4" src="https://img.icons8.com/fluent/48/000000/telegram-app.png"/>
+        </a>
+              <div class="w-full md:w-8/12 px-4 sm:self-end sm:mb-8">
                     <a
                       routerLink="/team"
-                      class=" text-white hover:text-gray-400 text-sm font-semibold block py-1 px-3"
+                      class=" text-white hover:text-gray-400 text-sm font-semibold block py-1 px-3 sm:text-right"
                       >About Us</a
                     >
-                  </li>
-                </ul>
               </div>
             </div>
           </div>
