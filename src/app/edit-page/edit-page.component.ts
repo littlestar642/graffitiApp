@@ -30,7 +30,7 @@ export class EditPageComponent implements OnInit,OnDestroy,AfterViewInit {
       }
       else{
         this.usersAffected=JSON.stringify(data.message.arr);
-        this.socket=io("http://localhost:8000");
+        this.socket=io("ws://localhost:8000/",{transports:["websocket"]});
         let currentUser=localStorage.getItem('loggedInUsername');
         let tshirtUser=localStorage.getItem('tshirtUser');
         if(!this.usersAffected.includes(tshirtUser)){
