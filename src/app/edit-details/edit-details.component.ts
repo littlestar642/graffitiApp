@@ -114,11 +114,30 @@ export class EditDetailsComponent implements OnInit {
     
   }
 
+  deleteAccount()
+  {
+    let username=localStorage.getItem("loggedInUsername");
+    this.userService.deleteUser({"userId":username}).subscribe((data)=>{
+      if(!data.action)
+        {
+          this.spinner.hide();
+          this.alertService.error(data.message);
+        }
+        else
+        {
+          this.spinner.hide();
+          this.alertService.success(data.message)
+          this.logout();
+        }
+    })
+  }
+
   logout()
   {
 
     this.userService.logout();
   }
+
 
   editUsername(){
     this.spinner.show();
