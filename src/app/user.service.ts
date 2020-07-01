@@ -89,6 +89,14 @@ export class UserService {
   }
 
 
+  updateUsername(user:any):any
+  {
+      let url=this.baseUrl+"updateUsername";
+      let headers=new HttpHeaders();
+      headers.set('Content-Type','application/json');
+      return this.http.put(url,JSON.parse(JSON.stringify(user)),{headers});
+  }
+
   isLoggedIn(){
     if(!localStorage.getItem("access_token"))
     {

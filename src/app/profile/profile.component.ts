@@ -10,10 +10,11 @@ import { AlertService } from '../alert.service';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private router:Router,private route:ActivatedRoute,private user:UserService,private alert:AlertService) { }
+  constructor(private router:Router,private route:ActivatedRoute,private user:UserService,private alert:AlertService,private activeRoute:ActivatedRoute) { }
   userArr;
   username;
   ngOnInit() {
+    this.checkUrl();
     this.userArr=[];
     this.username=localStorage.getItem("loggedInUsername").toUpperCase();
     this.user.getWritingUsers().subscribe((ret:any)=>{
@@ -26,6 +27,22 @@ export class ProfileComponent implements OnInit {
     })
   }
 
+  gotoEditDetails()
+  {
+  
+    this.router.navigate(['editdetails'],{relativeTo:this.route});
+  }
+
+  checkUrl()
+  {
+    let urlUser=this.activeRoute.snapshot.url[1].path;
+    let loggedInUsername=localStorage.getItem("loggedInUsername");
+    if(urlUser!=loggedInUsername)
+    {
+      this.router.navigate(['/']);
+    }
+  }
+  
   showHome(){
     let username=localStorage.getItem('loggedInUsername');
     this.router.navigate(['/dashboard/'+username])

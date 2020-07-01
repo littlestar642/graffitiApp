@@ -253,6 +253,7 @@ app.get('/api/logout',auth,async (req,res)=>{
 
 app.post('/api/checkUser',(req,res)=>{
     let {userId}=req.body;
+    console.log({userId});
     User.findOne({userId}).then(ret=>{
         if(ret){
             res.send({
@@ -378,6 +379,32 @@ app.post('/api/getImageUrlForTshirtUserBack',auth,(req,res)=>{
     })
     
 });
+
+app.put('/api/updateUsername/',auth,(req,res)=>{
+    console.log("this is sparta",req.body.userId,req.body.userIdNew);
+    User.updateOne({userId:req.body.userId},{userId:req.body.userIdNew}).then(ret=>{
+        if(!ret){
+            res.send({
+                action:false,
+                message:"invalid user request"
+            })
+        }
+        else{
+            res.send({
+                action:true,
+                message:"username updated!",
+            })
+            console.log("finally done!");
+        }
+
+
+    })
+
+});
+
+// app.delete('/api/deleteUser',auth,(req,res)=>{
+
+// })
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(distDir, 'index.html'));    

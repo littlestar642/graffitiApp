@@ -22,9 +22,11 @@ export class SignUpComponent implements OnInit {
   allowSignupFirstName=false;
   allowSignupLastName=false;
   allowSignupUsername=false;
+  allowSignupConfPassword=false;
   form = new FormGroup({
     username : new FormControl('',Validators.required),
     password : new FormControl('',Validators.required),
+    confpassword: new FormControl('',Validators.required),
     firstName : new FormControl('',Validators.required),
     lastName : new FormControl('',Validators.required),
     department : new FormControl('',Validators.required),
@@ -51,6 +53,20 @@ export class SignUpComponent implements OnInit {
     }
     this.alertService.info("good password bruh!")
     this.allowSignupPassword=true;
+  }
+
+  checkConfPassword()
+  {
+      let confpassword=this.form.get('confpassword').value;
+      let password=this.form.get('password').value;
+      if(password!=confpassword)
+      {
+        this.alertService.error("Told you to type it out. Passwords should match!");
+        this.allowSignupConfPassword=false;
+        return;
+      }
+      this.alertService.info("Cool! Passwords match. Please don't forget it though :')");
+      this.allowSignupConfPassword=true;
   }
 
   checkFirstName()
