@@ -83,10 +83,6 @@ const routes: Routes = [{
       {
         path: 'back',
         component: BackProfileComponent
-      },
-      {
-        path: 'editdetails',
-        component: EditDetailsComponent
       }
     ],
     canActivate: [AuthGuardService]

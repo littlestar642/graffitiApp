@@ -1,16 +1,8 @@
+
 <form [formGroup]="form">
+   
     <div class="relative w-full mb-3">
-      <label
-        class="block uppercase text-gray-700 text-xs font-bold mb-2"
-        for="username"
-        >Username</label
-      ><input 
-      formControlName="username" (blur)="checkUsername()" type="text" id="username" class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
-        placeholder="Show your creativity !"
-        style="transition: all 0.15s ease 0s;"
-      />
-    </div>
-    <div class="relative w-full mb-3">
+      <p>Tussi ja rahe ho? Tussi na jao :'(</p>
       <label
         class="block uppercase text-gray-700 text-xs font-bold mb-2"
         for="password"
@@ -24,32 +16,16 @@
    
 
     
-    <div>
-    </div>
+   
     <ngx-spinner
       bdColor="rgba(255,255,255,0.8)"
       size="medium"
       color="#E5433E"
       type="pacman"
       >
-      <p class="text-gray-900 text-xl p-2 mt-2">Updating username. <br>Login again with updated username</p>
+      <p class="text-gray-900 text-xl p-2 mt-2">Deleting your account! Hope you rot in hell! </p>
       </ngx-spinner>
-    <div class="flex justify-center items-center text-center mt-1/2 p-5">
-      <button [disabled]="!allowSignupUsername||!allowSignupPassword" type="button" [ngClass]="{'bg-red-500':!allowSignupUsername||!allowSignupPassword}" (click)="editUsername()"
-        class="btn-primary"
-        type="button"
-        style="transition: all 0.15s ease 0s;"
-      >
-        Sign Up
-      </button>
-        <button routerLink="/homepage"
-          class="btn-primary"
-          type="button"
-          style="transition: all 0.15s ease 0s;"
-        >
-          Sign In
-        </button>
-    </div>
+  
     
     
   </form>
