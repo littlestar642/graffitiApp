@@ -7,6 +7,8 @@ import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import { ActivatedRoute} from '@angular/router';
 import io from 'socket.io-client';
 import { AlertService } from '../alert.service';
+import { timer } from 'rxjs';
+
 
 
 @Component({
@@ -21,10 +23,16 @@ export class EditPageComponent implements OnInit,OnDestroy,AfterViewInit {
   room:string;
   usersAffected;
   notAllowed;
+  subscribeTimer;
+  timeLeft;
+  timerSubscription;
+  tshirtUser;
   ngOnInit() {
     this.checkUrl();
+    this.observableTimer();
     this.spinner.show("edit")
-    this.user.getUsersAffectedAndRoom({"tshirtUser":localStorage.getItem('tshirtUser')}).subscribe((data:any)=>{
+    this.tshirtUser=localStorage.getItem('tshirtUser');
+    this.user.getUsersAffectedAndRoom({"tshirtUser":this.tshirtUser}).subscribe((data:any)=>{
       if(!data.action){
         this.alert.error(data.message);
       }
@@ -32,16 +40,15 @@ export class EditPageComponent implements OnInit,OnDestroy,AfterViewInit {
         this.usersAffected=JSON.stringify(data.message.arr);
         this.socket=io("ws://localhost:8000/",{transports:["websocket"]});
         let currentUser=localStorage.getItem('loggedInUsername');
-        let tshirtUser=localStorage.getItem('tshirtUser');
-        if(!this.usersAffected.includes(tshirtUser)){
+        if(!this.usersAffected.includes(this.tshirtUser)){
           this.socket.emit('ack',{room:data.message.room,user:currentUser});
           this.socket.on('ackback',({num,present})=>{
             this.spinner.hide("edit");
-            if(present==currentUser){
+            if(present==currentUser && num==1){
               this.notAllowed=false;
               this.router.navigate(['front'],{relativeTo: this.route});
             }
-            else if(num>1){
+            else if(num>1 || present!==currentUser){
               this.notAllowed=true;
             }
             else{
@@ -85,6 +92,21 @@ showHome(){
   this.router.navigate(['/dashboard/'+username])
 }
 
+observableTimer() {
+  const source = timer(1000, 1000);
+  this.timerSubscription= source.subscribe(val => {
+    if(val==0){
+    this.alert.info("After 180 seconds you will be automatically redirected to dashboard")
+    }
+    else if(val==150){
+    this.alert.warn("Hurry up! last 30 seconds left")
+    }
+    else if(val==180){
+      this.router.navigate(["/"]);
+    }
+  });
+}
+
 
 showFront()
 {
@@ -101,6 +123,7 @@ showBack()
 ngOnDestroy(){
   if(this.socket)
   this.socket.close();
+  this.timerSubscription.unsubscribe();
 }
 
          
