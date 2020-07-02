@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
 import { UserService } from '../user.service';
 import { GlobalDataService } from '../global-data.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -40,6 +40,7 @@ export class FrontComponent implements OnInit, AfterViewInit {
             },
             initMenu: 'text',
             menuBarPosition: 'bottom',
+            uiSize:{width:`${window.innerWidth}px`,height:`${window.innerHeight}px`}
         },
         cssMaxWidth:600,
         cssMaxHeight:700,
@@ -58,15 +59,30 @@ export class FrontComponent implements OnInit, AfterViewInit {
               this.imageEditor.stopDrawingMode();
           }
           });
+
+        this.imageEditor.ui.resizeEditor({
+          uiSize: {width:`${window.innerWidth}px`,height:`${window.innerHeight}px`}
+        })
       
         this.imageEditor.on('objectActivated', (props)=> {
             this.flag=1
         });
+
+        
     }
   })
   
   
 }
+
+@HostListener('window:resize', ['$event'])
+      onResize(event) {
+      if(this.imageEditor)
+      this.imageEditor.ui.resizeEditor({
+    uiSize: {width:`${event.target.innerWidth}px`,height:`${event.target.innerHeight}px`}
+  })
+}
+
 
 ngAfterViewInit(){
   
