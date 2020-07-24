@@ -31,6 +31,9 @@ import { ServerErrorComponent } from './server-error/server-error.component';
 import { EditDetailsComponent } from './edit-details/edit-details.component';
 import { JwSocialButtonsModule } from 'jw-angular-social-buttons';
 import {WindowRef} from './windowref.service';
+import { AdminRegisterComponent } from './admin-register/admin-register.component';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
+import { AdminPageComponent } from './admin-page/admin-page.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -51,7 +54,10 @@ export function tokenGetter() {
     TeamComponent,
     PageNotFoundComponent,
     ServerErrorComponent,
-    EditDetailsComponent
+    EditDetailsComponent,
+    AdminRegisterComponent,
+    AdminLoginComponent,
+    AdminPageComponent
   ],
   imports: [
     BrowserModule,
