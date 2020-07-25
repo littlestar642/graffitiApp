@@ -10,7 +10,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "cssBuild": "npx tailwindcss build tailwind.css -o src/styles.css",
-    "addCollege":"env-cmd -f ./.env node addCollege.js"
+    "addCollege": "env-cmd -f ./.env node addCollege.js"
   },
   "private": true,
   "dependencies": {

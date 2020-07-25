@@ -38,6 +38,19 @@ import { TeamComponent } from './team/team.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ServerErrorComponent } from './server-error/server-error.component';
 import { EditDetailsComponent } from './edit-details/edit-details.component';
+import {
+  AdminPageComponent
+} from './admin-page/admin-page.component';
+import {
+  AdminLoginComponent
+} from './admin-login/admin-login.component'
+import {
+  AdminRegisterComponent
+}
+ from './admin-register/admin-register.component'
+import { AdminGuard } from './admin.guard'
+import { from } from 'rxjs';
+import { AdminLoginGuard } from './admin-login.guard';
 
 const routes: Routes = [{
     path: "homepage",
@@ -62,6 +75,24 @@ const routes: Routes = [{
     path: "signup",
     component: SignUpComponent,
     canActivate: [AuthGuardLoginService]
+  },
+  {
+    path: "adminpage",
+    component: AdminPageComponent,
+    canActivate : [AdminGuard]
+    
+  },
+  {
+    path: "adminregister",
+    component: AdminRegisterComponent
+    
+  },
+  {
+    path: "adminlogin",
+    component: AdminLoginComponent,
+    canActivate : [AdminLoginGuard]
+
+    
   },
   {
     path: "dashboard/:userId",
